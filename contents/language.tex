@@ -1,4 +1,11 @@
 % !TEX root =  ../geospatial-video.tex
 
 \section{Language}
-\todo{Shadaj}
+\ck{to focus: \\
+- by-frames operations: as a response to Lisa's use case where we need to scope the output video to the only interesting parts of each videos. \\
+- by-frames <--> by-instances: as a response to Yousef's comments to allow the language to express more queries
+}
+
+To address the pain points we noticed in our user interviews, we chose to design a new language for describing queries over geospatial video data as a domain-specific language embedded in Python. Instead of building a new language from scratch, which would require designing a new syntax and editor integrations that users would have to learn about, we are able to inherit the large ecosystem of existing tooling around Python. Furthermore, some potential users of our system are already familiar with Python, which makes it further easier to integrate into existing pipelines.
+
+There are three key factors constraining the design of our language: incremental query creation, support for using the language through a graphical user interface, and performant query execution.
