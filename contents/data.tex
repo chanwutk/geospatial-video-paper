@@ -1,9 +1,13 @@
 % !TEX root =  ../geospatial-video.tex
 
 \section{Dataset}
-\ck{to focus: \\
-- explain briefly about the dataset, what for, shape of the data.
-- how we transform the dataset to fit our data model.
-- 
-}
-\todo{Amy}
+%\todo{to focus: \\
+%- explain briefly about the dataset, what for, shape of the data.
+%- how we transform the dataset to fit our data model.
+%- 
+%}
+%\todo{Amy}
+
+For our prototype, we use the nuScenes dataset \cite{}, a collection of image, lidar, and radar to facilitate autonomous driving research. Data is collected from 15 hours of driving data in Boston and Singapore, and key frames are sampled at a rate of 2Hz for labelling by human annotators, resulting in a rich collection of information suitable for various downstream needs in autonomous driving research. We choose this dataset as its schema is conducive to our aim of.
+
+The entities which the users must interact with are abstracted into \textit{annotation, instance, frame}, and \textit{video}. Specifically, by specifying a string-identifier of a scene, the user can returns \texttt{Video} consisting of a list of \texttt{Frames}. Each \texttt{Frame} consists of several \texttt{instances} accompanied by \texttt{annotations}. This simple interface abstracts away the need to interact with the native nuScenes schema and offers easy access to information which is likely to be used, and furthermore provides a coarse-to-finegrained view of the data, which arose during the user need-finding studies.

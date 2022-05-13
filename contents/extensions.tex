@@ -1,4 +1,22 @@
 % !TEX root =  ../geospatial-video.tex
 
 \section{Extensions}
-\todo{Andrew}
+
+While we expect that the language will be sufficiently verbose to construct most types of queries, we also recognize that some of our users may not have the time, desire, or programming expertise to implement the functions that they may want to use to filter the videos. Therefore, we built out some of the possible helper functions that could be useful for filtering. These functions expect to be called within filter and thus all return boolean values. The ones provided below should take in the result of the sliding operation, as they intend to compare information about the instance across adjacent frames in order to determine something about the instance's movement.
+
+Utility functions for filtering: \\
+(Note: \texttt{iX} and \texttt{fY} (where \texttt{X} and \texttt{Y} are whole numbers) will refer to Instances and Frames, respectively.)
+\begin{itemize}
+    \item \texttt{move\_away(i1, i2, f1, f2)}: \\
+    This function calculates the distance between Instance \texttt{i1} and Instance \texttt{i2} in Frame \texttt{f1} and Frame \texttt{f2}, then compares these distances. If the distance between the instances in Frame \texttt{f2} is greater than the difference between the instances in Frame \texttt{f2}, then we consider the instances to be moving away from one another.
+    
+    \item \texttt{accelerating(i, f1, f2, f3)}:\\
+    This function uses the location of Instance \texttt{i} to determine if it has accelerated between Frame \texttt{f1} and Frame \texttt{f2}, and Frame \texttt{f2} and Frame \texttt{f3}. To determine this, it compares the difference in location between both pairs of frames: if the difference between the locations in Frame \texttt{f2} and Frame \texttt{f3} is greater than the difference between the locations in Frame \texttt{f1} and Frame \texttt{f2}, we consider Instance \texttt{i} to have accelerated.
+    
+    \item \texttt{decelerating(i, f1, f2, f3)}: \\
+    This function uses the location of Instance \texttt{i} to determine if it has decelerated between Frame \texttt{f1} and Frame \texttt{f2}, and Frame \texttt{f2} and Frame \texttt{f3}. To determine this, it compares the difference in location between both pairs of frames: if the difference between the locations in Frame \texttt{f2} and Frame \texttt{f3} is less than the difference between the locations in Frame \texttt{f1} and Frame \texttt{f2}, we consider Instance \texttt{i} to have decelerated.
+    
+    \item \texttt{stopped(i, f1, f2, tol: float)}: \\
+    This function uses the location of Instance \texttt{i} to determine if it has stopped from Frame \texttt{f1} to Frame \texttt{f2}. To determine this, it compares the difference in location between the two frames to the tolerance \texttt{tol}: if the difference is greater than \texttt{tol}, we consider the instance to have moved; otherwise, it has stopped.
+    
+\end{itemize}
