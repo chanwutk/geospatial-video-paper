@@ -1,0 +1,97 @@
+% !TEX root =  ../geospatial-video.tex
+
+\section{Related Work}
+
+\subsection{VisualWorldDb}
+In this paper~\cite{haynes:visualworlddb}, the author introduced us to the concept of Visual World Applications (VWAs).
+VWAs are applications that rely on spatial and temporal information from visual data.
+The authors presented VisualWorldDB a video database management system optimized for VWAs.
+With VisualWorldDB, users can create a \emph{world} that represents an actual world.
+Then, users can ingest multiple geospatial-videos into the \emph{world}.
+VisualWorldDB then places all the \emph{visual objects} present in the videos into the \emph{world}.
+Each \emph{visual object} has properties that include its location in the real world.
+After the users have all the \emph{visual objects} added to the \emph{world},
+they can query for these \emph{visual objects} instead of their videos.
+In the end VisualWorldDB retrieves the videos associated with the \emph{visual objects} queried.
+
+Despite the simplified data model, VisualWorldDB focuses on its storage systems and optimization.
+The paper does not go into much discussion about VisualWorldDB's query language.
+The paper presents an example program in VisualWorldDB's language to ingest videos into a \emph{world}.
+The language has a SQL-like syntax that expose internal data tables for users to manually input rows of data themselves.
+This approach is not intuitive to the users.
+First, the program users write is error prone.
+All the internal data table should have an invariant that keep the \emph{world} representation valid.
+However, users have access directly to the internal data table,
+so they can unintentionally break some of the invariant.
+Second, the program that the user writes is verbose.
+To add a video camera into a created \emph{world}, users need to:
+
+\begin{enumerate}
+    \item
+    Add the camera as an object to the world into an Objects table.
+    \item
+    Add the position of the camera as a point in to the world into a Point table.
+    \item
+    Add the orientation of the camera as another point into the world into the same Point table.
+    \item
+    Add a video file associated with the camera into the created world.
+\end{enumerate}
+Adding a camera to the \emph{world} could be done as one operation.
+Instead, we need four operations to perform this task. In this project, we take inspiration from this \emph{visual world} concept.
+
+\subsection{Apperception}
+Apperception~\cite{ge:apperception} has a similar \emph{world} concept as VisualWorldDB but with a more usable Application Programming Interface (API).
+Apperception stores all the geospatial data in MobilityDB~\cite{zimanyi:mobility}. However, it provides a Python API for users to interact with its geospatial-video data storage.
+Apperception provides a Python \emph{World} object that represent a \emph{world}.
+There are multiple operations that users can do with a \emph{world}.
+\begin{itemize}
+    \item
+    \textbf{\texttt{add\_camera}} to add a camera and video to the \emph{world}.
+    Compared to VisualWorldDB, users only need one operation to add a camera to a \emph{world}.
+    \item
+    \textbf{\texttt{recognize}} to extract objects from an existing video and place them into the \emph{world}.
+    \item
+    \textbf{\texttt{filter}} to filter only objects that the user is interested in.
+\end{itemize}
+After all the operations done, users will have a \emph{World} that contains only the objects that they are interested in.
+Then, they can use a \textbf{\texttt{get\_*}} method to observer the state of the world.
+\begin{itemize}
+    \item
+    \textbf{\texttt{get\_trajectory}} gives users the trajectory of each of the objects in the world.
+    The users can then use an \textbf{\texttt{overlay\_trajectory}} method to overlay the trajectories into the original video.
+    \item
+    \textbf{\texttt{get\_videos}} gives the videos of all the objects in the world.
+\end{itemize}
+
+Apperception's interface is easy to use and not verbose.
+It wraps around the internal geospatial-video data storage,
+so the users do not have direct access to the data table.
+As a result, it is less likely for them to accidentally violate the data store invariant.
+
+A \emph{World} is immutable, which means that it cannot be modified.
+Any operation done to a \emph{World} create a new \emph{World} that represents the original one with the operation applied to.
+This approach for making a \emph{World} immutable helps users to easily reason about the program they have written.
+In addition, having a immutable DataFrame-style syntax is common in tools~\cite{wickham:dplyr, pandas, mckinney:pandas} for data exploration tasks.
+Users who are already familiar with data exploration tools could learn how to use Apperception quickly.
+
+However, Apperception's language is designed for users to find objects in a \emph{World}.
+It is hard for users to describe a query to find a specific moment of an object using only Apperception language.
+For example, if a user has an hour-long video that capture the same car for the whole video.
+The car crashes at 45th minute of the video.
+The user can use Apperception language to query for a car that crashes.
+Apperception will return a \emph{World} that only contains the car.
+But, Apperception cannot provide the information about the when the incident occurs.
+
+\mick{what is the problem in apperception?: cannot explain more complicated query}
+\todo{What techniques did you adopt from others?}
+
+\subsection{Rekall}
+\mick{todo: query by frames}
+\todo{What techniques did you adopt from others?}
+
+\mick{todo: CLIP/LiveReel?}
+\todo{What alternative techniques have people used to work on this problem?}
+\todo{What techniques did you adopt from others?}
+
+\section{Fructure for Racket}
+When th

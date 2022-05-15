@@ -1,0 +1,180 @@
+% !TEX root =  ../geospatial-video.tex
+
+\section{User Interface}
+Although we did not implement a user interface for the language, we were able to prototype some designs for such an interface. Based on these explorations, we propose a block-based projectional editor interface to provide the most convenience and accessibility for programmers, particularly those with less experience who we expect to use this tool. To facilitate this, we would allow users to fill the holes in skeleton queries by selecting entries from a drop-down menu which would also have a search bar; this will provide suggestions to users who want to explore the dataset, but also allow users who know what want to see to search for what they are looking for.  
+
+As the output of a query in this language would be a series of clips or videos taken from the overall collection of videos,
+we envision the interface as having a region in which the output of the queries are displayed.
+However, this creates some problems when we have too many output videos.
+To amend this, we would split the list of videos into multiple pages to prevent the tool from loading all the videos at once.
+Then, we show the number of output videos.
+If the number of output videos is too large, we suggest that the users add more filters to the output to narrow down their search.
+
+\subsection{Mapping the Language to the Interface}
+
+First, the tool will store the collection of videos as some variable,
+which we will refer to as \texttt{videos}.
+A typical query in our language is shown in the Listing \ref{fig:Map1}.
+
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{1\hphantom{ab}people = videos \textbackslash}\\
+    \texttt{2\hphantom{abcdef}.flatten\_instances() \textbackslash}\\
+    \texttt{3\hphantom{abcdef}.\textbf{filter}(\textbf{lambda} i: \textbackslash}\\
+    \texttt{4\hphantom{abcdefghij}i.\textbf{property}["type"] == "person")}\\
+    \texttt{5}\\
+    \texttt{6\hphantom{ab}cars = videos \textbackslash}\\
+    \texttt{7\hphantom{abcdef}.\textbf{flatten\_instances}() \textbackslash}\\
+    \texttt{8\hphantom{abcdef}.\textbf{filter}(\textbf{lambda} i: \textbackslash}\\
+    \texttt{9\hphantom{abcdefghij}i.\textbf{property}["type"] == "car")}\\
+    \texttt{10}\\
+    \texttt{11\hphantom{a}result = people \textbackslash}\\
+    \texttt{12\hphantom{abcde}.join(cars, on="frame") \textbackslash}\\
+    \texttt{13\hphantom{abcde}.sliding(2) \textbackslash}\\
+    \texttt{14\hphantom{abcde}.\textbf{filter}(\textbf{lambda} i1, i2, f1, f2:}\\
+    \texttt{15\hphantom{abcdefghi}move\_away(i1, i2, f1, f2)}
+    }}
+    \caption{Example Query in our Programming Language}
+    \label{fig:Map1}
+\end{figure}
+
+In Listing \ref{fig:Map1}, we show an example query where a user is looking for all frames where a person and a car move away from one another. For clarity, this is split into three queries: the first two filter the videos for instances of people or cars, and the third joins these sub-queries to find sequences of frames in which the instances move away from one another; however, these can be combined into a single line of code.
+
+In Figure \ref{fig:UI1}, we show what the query would look like using our proposed interface.
+The highlighted sections represent the holes that the user has filled in.
+
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a person} and \hl{a car}}\\ \texttt{\hphantom{abcd}\hl{moving away} \hl{...}}}}
+    \caption{Example Query in our Proposed Interface}
+    \label{fig:UI1}
+\end{figure}
+
+\subsubsection{Frames}
+When trying to find a certain frame, e.g., frames that occur between 7am and 8am, we will have a query in our interface that looks like Figure \ref{fig:Frame1}. This is equivalent to the code in Figure \ref{fig:Frame2}, which uses the \texttt{flatten\_frames} method to allow users to filter along the frames.
+
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{Find frames between \hl{7am} and \hl{8am}}}}
+    \caption{Instance-based Query in Interface}
+    \label{fig:Frame1}
+\end{figure}
+
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{1\hphantom{ab}videos.flatten\_frames() \textbackslash}\\
+    \texttt{2\hphantom{abcdef}.\textbf{filter}(\textbf{lambda} i: \textbackslash}\\
+    \texttt{3\hphantom{abcdefghij}i.\textbf{property}["time"] > 7.00 and} \\
+    \texttt{4\hphantom{abcdefghij}i.\textbf{property}["time"] < 8.00)}}}
+    \caption{Instance-based Query in Language}
+    \label{fig:Frame2}
+\end{figure}
+
+\subsubsection{Instances}
+When trying to find frames that contain a certain instance, e.g., a car, we will have a query in our interface that looks like Figure \ref{fig:Instance1}. This is equivalent to the code in Figure \ref{fig:Instance2}, which uses the \texttt{flatten\_instance} method to allow users to filter along the instances.
+
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a car}}}}
+    \caption{Instance-based Query in Interface}
+    \label{fig:Instance1}
+\end{figure}
+
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{1\hphantom{ab}\texttt{videos.flatten\_instances() \textbackslash}\\
+    \texttt{2\hphantom{abcdef}.\textbf{filter}(\textbf{lambda} i: \textbackslash}\\
+    \texttt{3\hphantom{abcdefghij}i.\textbf{property}["type"] == "car")}}}
+    \caption{Instance-based Query in Language}
+    \label{fig:Instance2}
+\end{figure}
+
+\subsubsection{Multiple Instances in the Same Frame}
+When looking for frames that have multiple instances, e.g., a person and a car, we will have a query that looks like Figure \ref{fig:Multiple1}. To translate this to our language, as seen in Figure \ref{fig:Multiple2}, we'll first filter for the frames that contain a person, then filter for the frames that contain a car, and finally join these two lists of  using the \texttt{join} method, returning only the frames containing both instances. 
+To translate from the structure in the interface to this back-end, the interface should create a new list of frames for each new instance added, and join on matching frames for each pair of instances separated by the "\texttt{and}".
+
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a person} and \hl{a car}}}}
+    \caption{Example Query in our Proposed Interface}
+    \label{fig:Multiple1}
+\end{figure}
+
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{1\hphantom{ab}people = videos \textbackslash}\\
+    \texttt{2\hphantom{abcdef}.flatten\_instances() \textbackslash}\\
+    \texttt{3\hphantom{abcdef}.\textbf{filter}(\textbf{lambda} i: \textbackslash}\\
+    \texttt{4\hphantom{abcdefghij}i.\textbf{property}["type"] == "person")}\\
+    \texttt{5}\\
+    \texttt{6\hphantom{ab}cars = videos \textbackslash}\\
+    \texttt{7\hphantom{abcdef}.flatten\_instances() \textbackslash}\\
+    \texttt{8\hphantom{abcdef}.\textbf{filter}(\textbf{lambda} i: \textbackslash}\\
+    \texttt{9\hphantom{abcdefghij}i.\textbf{property}["type"] == "car")}\\
+    \texttt{10}\\
+    \texttt{11\hphantom{a}result = people \textbackslash}\\
+    \texttt{12\hphantom{abcde}.join(cars, on="frame") \textbackslash}
+    }}
+    \caption{Example Query in our Programming Language}
+    \label{fig:Multiple2}
+\end{figure}
+
+\subsubsection{Comparisons with Adjacent Frames}
+When comparing information between adjacent frames -- for instance, when trying to find positional or motion-related information about an instance (in this case a person)-- we will have a query that looks like Figure \ref{fig:Comp1}. To translate this to our language, as seen in Figure \ref{fig:Comp2}, we'll first filter for the frames that contain a person, then use the \texttt{sliding} operation to create pairs of frames, and finally filter these pairs to find those between which the person does not move. 
+
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a person} \hl{stopped}}}}
+    \caption{Example Query in our Proposed Interface}
+    \label{fig:Comp1}
+\end{figure}
+
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{1\hphantom{ab}people = videos \textbackslash}\\
+    \texttt{2\hphantom{abcdef}.flatten\_instances() \textbackslash}\\
+    \texttt{3\hphantom{abcdef}.\textbf{filter}(\textbf{lambda} i: \textbackslash}\\
+    \texttt{4\hphantom{abcdefghij}i.\textbf{property}["type"] == "person")}\\
+    \texttt{5}\\
+    \texttt{6\hphantom{ab}result = people \textbackslash}\\
+    \texttt{7\hphantom{abcdef}.sliding(2) \textbackslash}\\
+    \texttt{8\hphantom{abcdef}.\textbf{filter}(\textbf{lambda} i, f1, f2: \textbackslash}\\
+    \texttt{9\hphantom{abcdefghij}stopped(i, f1, f2) \textbackslash}
+    }}
+    \caption{Example Query in our Programming Language}
+    \label{fig:Comp2}
+\end{figure}
+
+Notice that in this case, the \texttt{sliding} operation is placed before the second \texttt{filter} operation. When any utilify functions are used to compare between frames, we must apply a  \texttt{sliding} operation first so we can access both frames.
+
+\subsection{Using the Interface}
+
+We will now demonstrate how to construct the query shown in Figure \ref{fig:UI1} using the proposed block-based interface. Note: \texttt{(def)} means that this is the default option.
+
+First, we must select the type of query. In this case, since we want the frames where a car and person move away from one another, we will select the query skeleton corresponding to finding frames with a specified instance.
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{Instance: all instances (def)}} \\\texttt{\hphantom{abcd}\hl{...}}}}
+    \caption{A}
+    \label{fig:Using1}
+\end{figure}
+To specify that we want instances a car, we will replace the \texttt{Instance: all instances (def)} with \texttt{a car}.
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a car} \hl{...}}}}
+    \caption{B}
+    \label{fig:Using2}
+\end{figure}
+Then, to add to the query, we will select the \texttt{...} and choose the option corresponding to a new instance.
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a car} and \\ \hphantom{abcd} \hl{Instance: all instances (def)} \hl{...}}}}
+    \caption{C}
+    \label{fig:Using3}
+\end{figure}
+To specify that this second instance should be a person, we will fill in the \texttt{all instances (default)} hole with \texttt{a person}.
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a car} and \hl{a person} \hl{...}}}}
+    \caption{D}
+    \label{fig:Using4}
+\end{figure}
+Then, to indicate that we want to filter on the frames the contain a car and a person, we will select the \texttt{...} and choose the option corresponding to a new filter.
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a car} and \hl{a person}}\\ \texttt{\hphantom{abcd}\hl{Filter: no filter (def)} \hl{...}}}}
+    \caption{E}
+    \label{fig:Using5}
+\end{figure}
+Finally, as we want scenes where the car and person move away from one another, we will replace the \texttt{Filter: no filter (def)} with \texttt{moving away}. This will give us the desired query.
+
+\begin{figure}[H]
+    \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a car} and \hl{a person}}\\ \texttt{\hphantom{abcd}\hl{moving away} \hl{...}}}}
+    \caption{F}
+    \label{fig:Using6}
+\end{figure}

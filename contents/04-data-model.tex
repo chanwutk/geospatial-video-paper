@@ -1,0 +1,34 @@
+% !TEX root =  ../geospatial-video.tex
+
+\section{Data Model}
+
+To interface with the data, the user uses the \textit{Annotation}, \textit{Instance}, \textit{Frame}, and \textit{Video} abstractions.
+Figure \ref{fig:abstraction} illustrates this data model in greater detail.
+Each video is denoted by an unique scene ID, and frames are indexed by the order in which they appear.
+All instances have an unique instance token which can be used to query specific properties for that instance specifically.
+By passing the scene ID, the user can load the video with corresponding annotations and properties needed for downstream tasks.
+The user may also directly instantiate any Frame and Instance directly from the nuScenes database, if provided with the frame order and instance token in addition to the scene ID.
+All metadata are stored in Annotations, with the exception of ``Category" (e.g. ), which is an attrithe frame order
+
+\newcommand{\dataModelCaption}{
+The wealth of image, annotation, spatial, and temporal information in geospatial data is simplified into in our language into Video, Frame, Instance, and Annotation.
+A video consists of several consecutive frame, which point to a specific image, and instances (e.g., cars, pedestrians) may persist through many frames.
+Each instance contains a category attribute, and an annotations attribute for accessing more detailed metadata of interest.
+}
+
+\begin{figure*}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figures/data-abstraction.png}
+    \caption{\dataModelCaption}
+    \label{fig:abstraction}
+\end{figure*}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/data-hierarchy.png}
+    \caption{\mick{todo}}
+    \label{fig:hierarchy}
+\end{figure}
+
+\mick{how are we different from apperception}
+\todo{to focus: the added idea of exploring video data by frames instead if by instances like in apperception}

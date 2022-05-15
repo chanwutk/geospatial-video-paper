@@ -1,0 +1,61 @@
+% !TEX root =  ../geospatial-video.tex
+
+\section{Introduction}
+
+Capturing moments with video cameras is easy, and storage costs for storing video data is cheap. Video cameras have thus become a widely used tool to document moments through visual information.
+However, visual information of video data is unstructured, making it difficult to store and look-up.
+Processing and analyzing is often labor- and time-intensive for the data scientist. 
+A common approach is to extract spatial and temporal information from the video data, using computer vision techniques~\cite{redmon:yolo,wojke:deepsort}.
+The extracted information makes the data more structured and easier to organize.
+We can them map the spatial information to the real-world location, becoming geospatial information.
+Geospatial information helps data scientists to make sense of the video data as they correlate with the real world.
+However, we still lack easy-to-use and expressive language to retrieve and explore the data.
+
+Our goal for this project is to design a language that makes it easier for data scientists to search and explore massive geospatial-video datasets. We explore two geospatial-video data analysis use cases, and use them to shape the design of our tool:
+
+\begin{itemize}
+    \item
+    \textbf{Autonomous Driving}: Scenic~\cite{fremont:scenic} is a language for generating visual scenes, specifically for autonomous vehicle training data.
+    %An researcher working on creating autonomous driving technologies usingon validating visual scenes generated~\cite{kim:scenic-validation},
+    by comparing the scenes with a real-world autonomous vehicle video data~\cite{ceasar:nuscenes}.
+    A Ph.D. student in Computer Science is working on validating visual scenes generated~\cite{kim:scenic-validation},
+    by comparing the scenes with a real-world autonomous vehicle video data~\cite{ceasar:nuscenes}.
+    
+    \item
+    \textbf{Evident of Misconduct:}
+    Data journalists often have large banks of video data, but not nearly enough time to look through these data. This may hinder the ability to accurate retrieve evidence involved in things like police misconducts or false court statements.
+\end{itemize}
+
+In order to uncover what are the essential user necessities of a geospatial-video analysis tool, introduce new features to expediate workflows, and decrease barrier-to-entry for working on these important problems, we conduct user interviews related to the two use cases above.
+
+% \andrew{Why hasn’t this topic been studied before, or why haven’t prior studies answered the questions you’re answering?
+% One issue with developing this tool is that in order to use it,
+% there must be an annotated dataset that contains information such as the geographical location of objects and labels of the elements in the video.
+% However, some of these concerns could be amended by using a computer vision model to label the video,
+% so we will not address that in this paper.}
+We have explored prior attempts on geospatial-video data analysis tools.
+VisualWorldDB~\cite{haynes:visualworlddb} presents a new data model to help users make sense of their video data after they are stored in the database.
+However, the work focuses heavily on the data storage system and optimizations.
+The proposed SQL-like query language is difficult to use as it exposes its internal data tables from which users can query.
+Apperception~\cite{ge:apperception} is built on top of the VisualWorldDB idea and aims to improve its usability.
+Apperception has a much simpler query language compared to VisualWorldDB.
+In the attempt, Apperception hides all the the internal data table and present a new data abstraction to users.
+As a result, the query language cannot express some data exploration questions.
+CLIP~\cite{radford:clip} is a large language model capable of generating video frames from a natural language description as the prompt. 
+However, the results are not deterministic, and it is difficult to query geospatial or temporal information.
+
+In this project we made following contributions:
+\begin{enumerate}
+    \item
+    We interviewed a data journalist and a computer science undergraduate,
+    who are working on geospatial-video data analysis tasks.
+    \item
+    We designed a Python~\cite{van:python} programming tool based on prior works and participants' need from the interviews.
+    Our tool presents an easy-to-understand data abstraction that will allow programmers of any experience level to easily explore large geospatial-video databases. Our tool also provide an expressive domain-specific language for users to explore their geospatial-video datasets through the data abstraction we provided.
+    \item
+    Our tool is designed to be extensible.
+    Users will be able to extend our language with their custom functions.
+    These custom functions help the users to express the queries that our provided query language cannot.
+    \item
+    We design a Graphical User Interface (GUI) for non-programmer to apply the same principle that our python tool provides but without programming experience.
+\end{enumerate}

@@ -12,7 +12,7 @@ Utility functions for filtering: \\
     
     \item \texttt{accelerating(i, f1, f2, f3)}:\\
     This function uses the location of Instance \texttt{i} to determine if it has accelerated between Frame \texttt{f1} and Frame \texttt{f2}, and Frame \texttt{f2} and Frame \texttt{f3}. To determine this, it compares the difference in location between both pairs of frames: if the difference between the locations in Frame \texttt{f2} and Frame \texttt{f3} is greater than the difference between the locations in Frame \texttt{f1} and Frame \texttt{f2}, we consider Instance \texttt{i} to have accelerated.
-    
+
     \item \texttt{decelerating(i, f1, f2, f3)}: \\
     This function uses the location of Instance \texttt{i} to determine if it has decelerated between Frame \texttt{f1} and Frame \texttt{f2}, and Frame \texttt{f2} and Frame \texttt{f3}. To determine this, it compares the difference in location between both pairs of frames: if the difference between the locations in Frame \texttt{f2} and Frame \texttt{f3} is less than the difference between the locations in Frame \texttt{f1} and Frame \texttt{f2}, we consider Instance \texttt{i} to have decelerated.
     
