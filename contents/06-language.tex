@@ -4,7 +4,7 @@
 \begin{figure*}[t]
     \centering
     \includegraphics[width=\textwidth]{figures/declarative-dataflow.png}
-    \caption{An example of a dataflow users can construct for a query that searches for adjacent frames where two specific cars are moving towards each other.}
+    \caption{An example of a dataflow users can construct for a query that searches for adjacent frames where two specific cars are moving towards each other. The pipeline is composed of the primitive operations in our language, but by combining the frame and instance concepts users can create complex queries.}
     \label{fig:declarative_dataflow}
 \end{figure*}
 
@@ -43,7 +43,7 @@ Next, we add the \texttt{sliding(n)} transformation, which makes it possible to 
 When applied to a collection of frames, this operator produces a new collection containing groups of \texttt{n} adjacent frames. 
 When applied to a collection of instances, however, this operation produces a collection of groups of \emph{annotations} corresponding to the states of the objects in adjacent frames.
 
-Finally, we add APIs on collections of videos to flatten all frames (\texttt{flatten\_frames}) or instances (\texttt{flatten\_instances}) into a single collection. Users often have multiple video sources corresponding to a single event, so it is helpful to process all frames with a single query pipeline. Furthermore, we plan to support users specifying groups of instances that correspond across videos so that many sources can be combined into a global view of the scene, in a similar manner to the world view abstraction in Apperception.
+Finally, we add APIs on collections of videos to flatten all frames (\texttt{flatten\_frames}) or instances (\texttt{flatten\_instances}) into a single collection. Users often have multiple video sources corresponding to a single event, so it is helpful to process all frames or objects with a single query pipeline. Furthermore, we plan to support users specifying groups of instances that correspond across videos so that many sources can be combined into a global view of the scene, in a similar manner to the world view in Apperception.
 
 Together, these constructs make it possible to express a wide variety of queries that process videos with both the frame-by-frame and per-instance views. By composing our video-specific APIs with the general functional APIs that support nested logic over frames or instances, users can easily build out the queries they need while ensuring that the pipeline is sufficiently modular to be adjusted in the future.
 
