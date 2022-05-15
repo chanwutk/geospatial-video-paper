@@ -1,10 +1,11 @@
 % !TEX root =  ../geospatial-video.tex
 
 \section{User Interface}
-Although we did not implement a user interface for the language, we were able to prototype some designs for such an interface. Based on these explorations, we propose a block-based projectional editor interface to provide the most convenience and accessibility for programmers, particularly those with less experience who we expect to use this tool. To facilitate this, we would allow users to fill the holes in skeleton queries by selecting entries from a drop-down menu which would also have a search bar; this will provide suggestions to users who want to explore the dataset, but also allow users who know what want to see to search for what they are looking for.  
+Although we did not implement a user interface for the language, we were able to prototype some designs for such an interface. 
+Based on these explorations, we propose a block-based projectional editor interface to provide the most convenience and accessibility for programmers, particularly those with less experience who we expect to use this tool. 
+To facilitate this, we would allow users to fill the holes in skeleton queries by selecting entries from a drop-down menu which would also have a search bar; this will provide suggestions to users who want to explore the dataset, but also allow users who know what want to see to search for what they are looking for.  
 
-As the output of a query in this language would be a series of clips or videos taken from the overall collection of videos,
-we envision the interface as having a region in which the output of the queries are displayed.
+As the output of a query in this language would be a series of clips or videos taken from the overall collection of videos, we envision the interface as having a region in which the output of the queries are displayed.
 However, this creates some problems when we have too many output videos.
 To amend this, we would split the list of videos into multiple pages to prevent the tool from loading all the videos at once.
 Then, we show the number of output videos.
@@ -12,11 +13,10 @@ If the number of output videos is too large, we suggest that the users add more 
 
 \subsection{Mapping the Language to the Interface}
 
-First, the tool will store the collection of videos as some variable,
-which we will refer to as \texttt{videos}.
-A typical query in our language is shown in the Listing \ref{fig:Map1}.
+First, the tool will store the collection of videos as some variable, which we will refer to as \texttt{videos}.
+A typical query in our language is shown in Figure \ref{fig:Map1}.
 
-\begin{figure}[H]
+\begin{figure}
     \fbox{\parbox{\linewidth}{\texttt{1\hphantom{ab}people = videos \textbackslash}\\
     \texttt{2\hphantom{abcdef}.flatten\_instances() \textbackslash}\\
     \texttt{3\hphantom{abcdef}.\textbf{filter}(\textbf{lambda} i: \textbackslash}\\
@@ -37,7 +37,8 @@ A typical query in our language is shown in the Listing \ref{fig:Map1}.
     \label{fig:Map1}
 \end{figure}
 
-In Listing \ref{fig:Map1}, we show an example query where a user is looking for all frames where a person and a car move away from one another. For clarity, this is split into three queries: the first two filter the videos for instances of people or cars, and the third joins these sub-queries to find sequences of frames in which the instances move away from one another; however, these can be combined into a single line of code.
+In Figure \ref{fig:Map1}, we show an example query where a user is looking for all frames where a person and a car move away from one another. 
+For clarity, this is split into three queries: the first two filter the videos for instances of people or cars, and the third joins these sub-queries to find sequences of frames in which the instances move away from one another; however, these can be combined into a single line of code.
 
 In Figure \ref{fig:UI1}, we show what the query would look like using our proposed interface.
 The highlighted sections represent the holes that the user has filled in.
@@ -49,7 +50,8 @@ The highlighted sections represent the holes that the user has filled in.
 \end{figure}
 
 \subsubsection{Frames}
-When trying to find a certain frame, e.g., frames that occur between 7am and 8am, we will have a query in our interface that looks like Figure \ref{fig:Frame1}. This is equivalent to the code in Figure \ref{fig:Frame2}, which uses the \texttt{flatten\_frames} method to allow users to filter along the frames.
+When trying to find a certain frame, e.g., frames that occur between 7am and 8am, we will have a query in our interface that looks like Figure \ref{fig:Frame1}. 
+This is equivalent to the code in Figure \ref{fig:Frame2}, which uses the \texttt{flatten\_frames} method to allow users to filter along the frames.
 
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames between \hl{7am} and \hl{8am}}}}
@@ -67,7 +69,8 @@ When trying to find a certain frame, e.g., frames that occur between 7am and 8am
 \end{figure}
 
 \subsubsection{Instances}
-When trying to find frames that contain a certain instance, e.g., a car, we will have a query in our interface that looks like Figure \ref{fig:Instance1}. This is equivalent to the code in Figure \ref{fig:Instance2}, which uses the \texttt{flatten\_instance} method to allow users to filter along the instances.
+When trying to find frames that contain a certain instance, e.g., a car, we will have a query in our interface that looks like Figure \ref{fig:Instance1}.
+This is equivalent to the code in Figure \ref{fig:Instance2}, which uses the \texttt{flatten\_instance} method to allow users to filter along the instances.
 
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a car}}}}
@@ -84,7 +87,8 @@ When trying to find frames that contain a certain instance, e.g., a car, we will
 \end{figure}
 
 \subsubsection{Multiple Instances in the Same Frame}
-When looking for frames that have multiple instances, e.g., a person and a car, we will have a query that looks like Figure \ref{fig:Multiple1}. To translate this to our language, as seen in Figure \ref{fig:Multiple2}, we'll first filter for the frames that contain a person, then filter for the frames that contain a car, and finally join these two lists of  using the \texttt{join} method, returning only the frames containing both instances. 
+When looking for frames that have multiple instances, e.g., a person and a car, we will have a query that looks like Figure \ref{fig:Multiple1}. 
+To translate this to our language, as seen in Figure \ref{fig:Multiple2}, we'll first filter for the frames that contain a person, then filter for the frames that contain a car, and finally join these two lists of  using the \texttt{join} method, returning only the frames containing both instances. 
 To translate from the structure in the interface to this back-end, the interface should create a new list of frames for each new instance added, and join on matching frames for each pair of instances separated by the "\texttt{and}".
 
 \begin{figure}[H]
@@ -112,7 +116,8 @@ To translate from the structure in the interface to this back-end, the interface
 \end{figure}
 
 \subsubsection{Comparisons with Adjacent Frames}
-When comparing information between adjacent frames -- for instance, when trying to find positional or motion-related information about an instance (in this case a person)-- we will have a query that looks like Figure \ref{fig:Comp1}. To translate this to our language, as seen in Figure \ref{fig:Comp2}, we'll first filter for the frames that contain a person, then use the \texttt{sliding} operation to create pairs of frames, and finally filter these pairs to find those between which the person does not move. 
+When comparing information between adjacent frames -- for instance, when trying to find positional or motion-related information about an instance (in this case a person)-- we will have a query that looks like Figure \ref{fig:Comp1}. 
+To translate this to our language, as seen in Figure \ref{fig:Comp2}, we'll first filter for the frames that contain a person, then use the \texttt{sliding} operation to create pairs of frames, and finally filter these pairs to find those between which the person does not move. 
 
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a person} \hl{stopped}}}}
@@ -135,13 +140,16 @@ When comparing information between adjacent frames -- for instance, when trying 
     \label{fig:Comp2}
 \end{figure}
 
-Notice that in this case, the \texttt{sliding} operation is placed before the second \texttt{filter} operation. When any utilify functions are used to compare between frames, we must apply a  \texttt{sliding} operation first so we can access both frames.
+Notice that in this case, the \texttt{sliding} operation is placed before the second \texttt{filter} operation. 
+When any utilify functions are used to compare between frames, we must apply a \texttt{sliding} operation first so we can access both frames.
 
 \subsection{Using the Interface}
 
-We will now demonstrate how to construct the query shown in Figure \ref{fig:UI1} using the proposed block-based interface. Note: \texttt{(def)} means that this is the default option.
+We will now demonstrate how to construct the query shown in Figure \ref{fig:UI1} using the proposed block-based interface. 
+Note: \texttt{(def)} means that this is the default option.
 
-First, we must select the type of query. In this case, since we want the frames where a car and person move away from one another, we will select the query skeleton corresponding to finding frames with a specified instance.
+First, we must select the type of query. 
+In this case, since we want the frames where a car and person move away from one another, we will select the query skeleton corresponding to finding frames with a specified instance.
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{Instance: all instances (def)}} \\\texttt{\hphantom{abcd}\hl{...}}}}
     \caption{Query Skeleton}
@@ -162,7 +170,7 @@ Then, to add to the query, we will select the \texttt{...} and choose the option
 To specify that this second instance should be a person, we will fill in the \texttt{all instances (default)} hole with \texttt{a person}.
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a car} and \hl{a person} \hl{...}}}}
-    \caption{Adding the second (generic) Instance}
+    \caption{Selecting the second Instance}
     \label{fig:Using4}
 \end{figure}
 Then, to indicate that we want to filter on the frames the contain a car and a person, we will select the \texttt{...} and choose the option corresponding to a new filter.
@@ -175,6 +183,10 @@ Finally, as we want scenes where the car and person move away from one another, 
 
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a car} and \hl{a person}}\\ \texttt{\hphantom{abcd}\hl{moving away} \hl{...}}}}
-    \caption{Selecting the }
+    \caption{Selecting the filter}
     \label{fig:Using6}
 \end{figure}
+
+This iterative process of creating a query also ties into the incremental query execution goal of the language design. Because we have a declarative language that is optimized around providing feedback on queries as they are built up, we can provide feedback to users as they define queries in the GUI. For example, we can display samples of frames that include just a car before the user adds the additional constraint that a person should be present in the frame.
+
+By providing all the features of the low-level Python API while including features that simplify the process of defining common query elements, we believe that this interface design will make it easier for non-programmers like User L to use our system. In future work, we hope to develop this design into a full implementation and investigate how users interact with the language through this layer.

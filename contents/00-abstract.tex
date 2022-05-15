@@ -5,9 +5,7 @@
 Geospatial-video databases help data scientists store their video data efficiently,
 but many of them do not provide intuitive query languages for the data scientists to retrieve the data back.
 Databases with intuitive query languages provide data abstractions that hide their internal data representations.
-These data abstractions limit the number of operations that data scientists can perform on their data. In this paper, we address the failure for existing languages to easily enable queries to video frames, as identified through need-finding interviews with users of geospatial-video query languages. 
+These data abstractions limit the number of operations that data scientists can perform on their data. In this paper, we address the failure for existing languages to easily describe queries over a combination of video frames and detected objects, as identified through need-finding interviews with users of geospatial-video query languages. 
 %As a response, we propose improvements to the expressiveness of the existing geospatial-video data analysis tool.
-We focus on its data abstraction and query language design.
-Our new data abstraction additionally includes a video frame data-type.
-Our new query language provides operations for users to reason about video frames in their data.
+We focus on developing a novel data abstraction for video data and domain-specific language for describing video queries with a functional interface. Our new query language provides operations for users to reason about video frames in their data while also considering the behavior of specific objects detected within these frames. Finally, we explore a design that would enable non-programmers to interact with our query system through a graphical interface.
 \end{abstract}

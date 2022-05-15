@@ -25,7 +25,7 @@ In order to identify short-comings for current tools and guide the design of our
 \subsection{Data Journalism}
 User L is a data journalist at a public radio station who must look at video evidence on the order of thousands to collect and report on evidence, specifically surrounding police misconduct. With permission, we recorded L performing the video queries required for this task. In L's workflow, L goes through several videos and makes quick notes on how they relate to each other and which ones might be most helpful, and clicks through frames to roughly gauge what is happening in the video. She logs information about each video and key frames, consisting of information such as the subjects and objects present in the video and what is happening.
 
-This user study illustrated two key needs. One is the need for users to be able to have as much metadata as possible about videos and frames in order to save time; much of the pipeline involves scoping down parts of the video until the relevant segments and frames are found. Second, we observe the level of detail within frames that is needed (e.g. ``This car is moving towards the officer, that's very important") for key frames, as well as the level of context needed before an inference can be made on what has happened. This indicates that simplifying how users access and query the video annotations and metadata alleviates bottle-necks in the workflow. In our language, the data model are designed to address this (see Section \ref{})
+This user study illustrated two key needs. One is the need for users to be able to have as much metadata as possible about videos and frames in order to save time; much of the pipeline involves scoping down parts of the video until the relevant segments and frames are found. Second, we observe the level of detail within frames that is needed (e.g. ``This car is moving towards the officer, that's very important") for key frames, as well as the level of context needed before an inference can be made on what has happened. This indicates that simplifying how users access and query the video annotations and metadata alleviates bottle-necks in the workflow. In our language, the data model are designed to address this (see Data Model: Section \ref{section:data-model}).
 
 
 
@@ -34,10 +34,19 @@ This user study illustrated two key needs. One is the need for users to be able 
 
 \subsection{Programmer}
 
-User Y is a student researcher who translates between Scenic to Apperception queries to aid in geospatial research. The task we observe is to find all frames with a specific instance -- in this case, to find all frames with a car.
-....
+User Y is a student researcher who translates between Scenic to Apperception queries to aid in autonomous vehicle research.
+% The task we observe is to find all frames with a specific object -- in this case, to find all frames with a car.
+% ....
+We give Y a task to describe what the queries in our language aim to do by looking at the initial version of our syntax alone, after a short overview of the key elements of our language.
+The tasks are to: (1) identify all frames where more than two cars are present; (2) identify all objects which has another object moving towards them; (3) identify objects of people where they are moving away from a car ; and (4) identify all cars to the left of the camera.
 
-We give Y an intuitive description of what the queries in our language aim to do by looking at the syntax alone, after a short short overview of the key elements of our language. The tasks are to: (1) identify all frames where more than two cars are present; (2) Identify all instances which has another instance moving towards them; (3) Identify instances of people where they are moving away from a car ; and (4) Identify all cars to the left of the camera. These reflect calls which may be neccesary for a researcher building planning or machine learning models from such data for autonomous driving. To address the needs found in this study, a key element of our language is to enable users to filter frame, and then switch to filtering by objects. We also find that Y was able to correctly understand and explain the purpose of the syntax without too much time or guesswork.
+These reflect calls which may be necessary for a researcher building planning or machine learning models from such data for autonomous driving. The tasks are designed to involve reasoning about the behavior of specific objects over time, since a key element of our language is to enable users to filter by frame, and then switch to filtering by objects.
+We find that Y was able to correctly understand and explain the purpose of the syntax without too much time or guesswork.
+
+In the end, Y agree that the abstraction and language that we present provides the functionalities that Apperception is missing.
+He also gives suggestions to an improvements of the language design.
+Instead of exploring the video data through either \emph{Frame} or \emph{Object},
+how do we design a language that allows users to construct a query that involve both \emph{Frame} and \emph{Object} at the same time?
 
 % anguage such that users can filter by frame, and then switches to filtering by objects.
 % We asked him to prepare a query from Scenic to translate into an Apperception query.
