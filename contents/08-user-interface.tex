@@ -53,7 +53,7 @@ When trying to find a certain frame, e.g., frames that occur between 7am and 8am
 
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames between \hl{7am} and \hl{8am}}}}
-    \caption{Instance-based Query in Interface}
+    \caption{Frame-based Query in Interface}
     \label{fig:Frame1}
 \end{figure}
 
@@ -62,7 +62,7 @@ When trying to find a certain frame, e.g., frames that occur between 7am and 8am
     \texttt{2\hphantom{abcdef}.\textbf{filter}(\textbf{lambda} i: \textbackslash}\\
     \texttt{3\hphantom{abcdefghij}i.\textbf{property}["time"] > 7.00 and} \\
     \texttt{4\hphantom{abcdefghij}i.\textbf{property}["time"] < 8.00)}}}
-    \caption{Instance-based Query in Language}
+    \caption{Frame-based Query in Language}
     \label{fig:Frame2}
 \end{figure}
 
@@ -89,7 +89,7 @@ To translate from the structure in the interface to this back-end, the interface
 
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a person} and \hl{a car}}}}
-    \caption{Example Query in our Proposed Interface}
+    \caption{Query for Multiple Instances in our Proposed Interface}
     \label{fig:Multiple1}
 \end{figure}
 
@@ -107,7 +107,7 @@ To translate from the structure in the interface to this back-end, the interface
     \texttt{11\hphantom{a}result = people \textbackslash}\\
     \texttt{12\hphantom{abcde}.join(cars, on="frame") \textbackslash}
     }}
-    \caption{Example Query in our Programming Language}
+    \caption{Query for Multiple Instances in our Programming Language}
     \label{fig:Multiple2}
 \end{figure}
 
@@ -116,7 +116,7 @@ When comparing information between adjacent frames -- for instance, when trying 
 
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a person} \hl{stopped}}}}
-    \caption{Example Query in our Proposed Interface}
+    \caption{Frame Comparison Query in our Proposed Interface}
     \label{fig:Comp1}
 \end{figure}
 
@@ -131,7 +131,7 @@ When comparing information between adjacent frames -- for instance, when trying 
     \texttt{8\hphantom{abcdef}.\textbf{filter}(\textbf{lambda} i, f1, f2: \textbackslash}\\
     \texttt{9\hphantom{abcdefghij}stopped(i, f1, f2) \textbackslash}
     }}
-    \caption{Example Query in our Programming Language}
+    \caption{Frame Comparison Query in our Programming Language}
     \label{fig:Comp2}
 \end{figure}
 
@@ -144,37 +144,37 @@ We will now demonstrate how to construct the query shown in Figure \ref{fig:UI1}
 First, we must select the type of query. In this case, since we want the frames where a car and person move away from one another, we will select the query skeleton corresponding to finding frames with a specified instance.
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{Instance: all instances (def)}} \\\texttt{\hphantom{abcd}\hl{...}}}}
-    \caption{A}
+    \caption{Query Skeleton}
     \label{fig:Using1}
 \end{figure}
 To specify that we want instances a car, we will replace the \texttt{Instance: all instances (def)} with \texttt{a car}.
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a car} \hl{...}}}}
-    \caption{B}
+    \caption{Selecting the first Instance}
     \label{fig:Using2}
 \end{figure}
 Then, to add to the query, we will select the \texttt{...} and choose the option corresponding to a new instance.
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a car} and \\ \hphantom{abcd} \hl{Instance: all instances (def)} \hl{...}}}}
-    \caption{C}
+    \caption{Adding the second (generic) Instance}
     \label{fig:Using3}
 \end{figure}
 To specify that this second instance should be a person, we will fill in the \texttt{all instances (default)} hole with \texttt{a person}.
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a car} and \hl{a person} \hl{...}}}}
-    \caption{D}
+    \caption{Adding the second (generic) Instance}
     \label{fig:Using4}
 \end{figure}
 Then, to indicate that we want to filter on the frames the contain a car and a person, we will select the \texttt{...} and choose the option corresponding to a new filter.
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a car} and \hl{a person}}\\ \texttt{\hphantom{abcd}\hl{Filter: no filter (def)} \hl{...}}}}
-    \caption{E}
+    \caption{Adding the (generic) filter}
     \label{fig:Using5}
 \end{figure}
 Finally, as we want scenes where the car and person move away from one another, we will replace the \texttt{Filter: no filter (def)} with \texttt{moving away}. This will give us the desired query.
 
 \begin{figure}[H]
     \fbox{\parbox{\linewidth}{\texttt{Find frames with \hl{a car} and \hl{a person}}\\ \texttt{\hphantom{abcd}\hl{moving away} \hl{...}}}}
-    \caption{F}
+    \caption{Selecting the }
     \label{fig:Using6}
 \end{figure}

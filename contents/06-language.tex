@@ -39,8 +39,11 @@ With these design goals, we decided to develop a DSL based on declarative and fu
 
 Our DSL consists of four core types corresponding to the elements of our data model: videos, frames, instances, and annotations. To develop dataflows over these structures, we then provide collection types wrapping these elements, which represent nodes that will process incoming streams of video data. In the time domain, we also include a collection type that captures groups of frames rather than just individual elements, which is useful when performing tasks like tracking the motion of an object over a window of time.
 
-To create complex queries, users can develop a dataflow pipeline by repeatedly transforming these collection types using functional operations. In addition to the classic transformations such as map, which transforms individual elements independent of each other, and filter, which applies a predicate to each element, we also include several operations specific to the domain of video data. First, we include the \texttt{join} operator, which allows a user to combine multiple collections by matching elements with a specific property. For example, users may join 
+To create complex queries, users can develop a dataflow pipeline by repeatedly transforming these collection types using functional operations. In addition to the classic transformations such as map, which transforms individual elements independent of each other, and filter, which applies a predicate to each element, we also include several operations specific to the domain of video data.
 
+First, we include the \texttt{join} operator, which allows a user to combine multiple collections by matching elements with a specific property. For example, users may join on frames, which will gather pairs of elements from both inputs that are present in the same frame.
+
+Next, we add the \texttt{sliding} transformation, which makes it possible to develop queries that reason about windows of time in the video rather than just individual points in time. This operator, whether applied on a collection of instances or frames, will 
 
 \shadaj{walk through functional APIs}
 

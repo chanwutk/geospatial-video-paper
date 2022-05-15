@@ -8,7 +8,7 @@ Each video is denoted by an unique scene ID, and frames are indexed by the order
 All instances have an unique instance token which can be used to query specific properties for that instance specifically.
 By passing the scene ID, the user can load the video with corresponding annotations and properties needed for downstream tasks.
 The user may also directly instantiate any Frame and Instance directly from the nuScenes database, if provided with the frame order and instance token in addition to the scene ID.
-All metadata are stored in Annotations, with the exception of ``Category" (e.g. ), which is an attrithe frame order
+All metadata are stored in Annotations, with the exception of ``Category" (e.g. ), which is an attribute in \textit{Instance}.
 
 \newcommand{\dataModelCaption}{
 The wealth of image, annotation, spatial, and temporal information in geospatial data is simplified into in our language into Video, Frame, Instance, and Annotation.
@@ -23,12 +23,22 @@ Each instance contains a category attribute, and an annotations attribute for ac
     \label{fig:abstraction}
 \end{figure*}
 
+\newcommand{\dataHierarchyCaption}{
+The hierarchy of our data type.
+Users can start exploring they geospatial-video data from \emph{Video}.
+Then, 
+}
+
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\columnwidth]{figures/data-hierarchy.png}
-    \caption{\mick{todo}}
+    \caption{\dataHierarchyCaption}
     \label{fig:hierarchy}
 \end{figure}
 
-\mick{how are we different from apperception}
-\todo{to focus: the added idea of exploring video data by frames instead if by instances like in apperception}
+Our data model is an improvement to Apperception's data model.
+In Apperception, users mostly interact with \emph{World}, \emph{Video}, and \emph{Instance}.
+The output form Apperception can also only represent \emph{World} and \emph{Instance}.
+In the new data model, users can interact with all of the data type shown in Figure~\ref{fig:abstraction}.
+This abstraction allows users to construct queries to answer more complex data exploration questions,
+while not exposing the internal geospatial data store.

@@ -3,10 +3,10 @@
 \section{Related Work}
 
 \subsection{VisualWorldDb}
-In this paper~\cite{haynes:visualworlddb}, the author introduced us to the concept of Visual World Applications (VWAs).
+In this paper~\cite{haynes:visualworlddb}, the author introduces the concept of Visual World Applications (VWAs).
 VWAs are applications that rely on spatial and temporal information from visual data.
-The authors presented VisualWorldDB a video database management system optimized for VWAs.
-With VisualWorldDB, users can create a \emph{world} that represents an actual world.
+The authors present VisualWorldDB: a video database management system optimized for VWAs.
+With VisualWorldDB, users can create a \emph{world} that represents the real world.
 Then, users can ingest multiple geospatial-videos into the \emph{world}.
 VisualWorldDB then places all the \emph{visual objects} present in the videos into the \emph{world}.
 Each \emph{visual object} has properties that include its location in the real world.
@@ -18,9 +18,9 @@ Despite the simplified data model, VisualWorldDB focuses on its storage systems 
 The paper does not go into much discussion about VisualWorldDB's query language.
 The paper presents an example program in VisualWorldDB's language to ingest videos into a \emph{world}.
 The language has a SQL-like syntax that expose internal data tables for users to manually input rows of data themselves.
-This approach is not intuitive to the users.
-First, the program users write is error prone.
-All the internal data table should have an invariant that keep the \emph{world} representation valid.
+However, this approach is not intuitive to users.
+First, the programs that users write are prone to errors.
+All the internal data tables should have an invariant that keep the \emph{world} representation valid.
 However, users have access directly to the internal data table,
 so they can unintentionally break some of the invariant.
 Second, the program that the user writes is verbose.
@@ -36,13 +36,13 @@ To add a video camera into a created \emph{world}, users need to:
     \item
     Add a video file associated with the camera into the created world.
 \end{enumerate}
-Adding a camera to the \emph{world} could be done as one operation.
-Instead, we need four operations to perform this task. In this project, we take inspiration from this \emph{visual world} concept.
+Adding a camera to the \emph{world} could be done as one operation --
+instead, we need four operations to perform this task. In this project, we take inspiration from this \emph{visual world} concept.
 
 \subsection{Apperception}
 Apperception~\cite{ge:apperception} has a similar \emph{world} concept as VisualWorldDB but with a more usable Application Programming Interface (API).
 Apperception stores all the geospatial data in MobilityDB~\cite{zimanyi:mobility}. However, it provides a Python API for users to interact with its geospatial-video data storage.
-Apperception provides a Python \emph{World} object that represent a \emph{world}.
+Apperception also provides a Python \emph{World} object that represent a \emph{world}.
 There are multiple operations that users can do with a \emph{world}.
 \begin{itemize}
     \item
@@ -71,27 +71,36 @@ As a result, it is less likely for them to accidentally violate the data store i
 A \emph{World} is immutable, which means that it cannot be modified.
 Any operation done to a \emph{World} create a new \emph{World} that represents the original one with the operation applied to.
 This approach for making a \emph{World} immutable helps users to easily reason about the program they have written.
-In addition, having a immutable DataFrame-style syntax is common in tools~\cite{wickham:dplyr, pandas, mckinney:pandas} for data exploration tasks.
+In addition, having a immutable DataFrame-style syntax is common in tools~\cite{mckinney:pandas, pandas, wickham:dplyr} for data exploration tasks.
 Users who are already familiar with data exploration tools could learn how to use Apperception quickly.
 
 However, Apperception's language is designed for users to find objects in a \emph{World}.
-It is hard for users to describe a query to find a specific moment of an object using only Apperception language.
+It is difficult for users to describe a query that can find a specific moment of an object using only Apperception language.
 For example, if a user has an hour-long video that capture the same car for the whole video.
 The car crashes at 45th minute of the video.
 The user can use Apperception language to query for a car that crashes.
 Apperception will return a \emph{World} that only contains the car.
 But, Apperception cannot provide the information about the when the incident occurs.
 
-\mick{what is the problem in apperception?: cannot explain more complicated query}
-\todo{What techniques did you adopt from others?}
+Our project will build on top of Apperception's language: we aim to address the problems with Apperception language, specifically, that it is not expressive enough to describe complex data exploration questions.
 
 \subsection{Rekall}
-\mick{todo: query by frames}
-\todo{What techniques did you adopt from others?}
+Rekall~\cite{fu:rekall} is another video data analysis tool that we looked into.
+Rekall presents an abstraction for video data for its video frames.
+Rekall does not organize videos as a \emph{world} --
+instead it simply organize them as collections of video frames.
+Rekall also provide a \textbf{\texttt{filter}} method like in Apperception, 
+but instead of filtering by objects, Rekall's \textbf{\texttt{filter}} filters only the frames that the user is interested in.
 
-\mick{todo: CLIP/LiveReel?}
-\todo{What alternative techniques have people used to work on this problem?}
-\todo{What techniques did you adopt from others?}
+This abstraction and operator is helpful to our project because it fills in the main disadvantage of Apperception.
+Our project will be integrating the by-frame abstraction to our data model and query language.
 
-\section{Fructure for Racket}
-When th
+% \mick{todo: CLIP/LiveReel?}
+% \todo{What alternative techniques have people used to work on this problem?}
+% \todo{What techniques did you adopt from others?}
+
+\subsection{Fructure for Racket}
+When considering the design for our user interface, we were inspired by Andrew Blinn's Fructure for Racket~\cite{blinn:fructure}, a projectional editor that allows users to either type code or select code via mouse to fill in holes in a program.
+Projectional editors are efficient for basic code-editing activities \cite{berger:projection} and useful for educational uses, particularly as they prevent syntax errors \cite{santos:javardise, weintrop:block-based}, which is important for our users who are less experiences with coding.
+On the other hand, our more experienced programmers may want to type code the traditional way: Fructure's flexibility allows users to type in the holes rather than just scrolling through the list, and we would implement this as well.
+

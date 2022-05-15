@@ -7,9 +7,9 @@ However, visual information of video data is unstructured, making it difficult t
 Processing and analyzing is often labor- and time-intensive for the data scientist. 
 A common approach is to extract spatial and temporal information from the video data, using computer vision techniques~\cite{redmon:yolo,wojke:deepsort}.
 The extracted information makes the data more structured and easier to organize.
-We can them map the spatial information to the real-world location, becoming geospatial information.
-Geospatial information helps data scientists to make sense of the video data as they correlate with the real world.
-However, we still lack easy-to-use and expressive language to retrieve and explore the data.
+We can them map the spatial information to the real-world location, thus transforming it into geospatial information.
+Geospatial information helps data scientists make sense of the video data as they correlate with the real world.
+However, we still lack easy-to-use and expressive languages to retrieve and explore the data.
 
 Our goal for this project is to design a language that makes it easier for data scientists to search and explore massive geospatial-video datasets. We explore two geospatial-video data analysis use cases, and use them to shape the design of our tool:
 
@@ -17,16 +17,16 @@ Our goal for this project is to design a language that makes it easier for data 
     \item
     \textbf{Autonomous Driving}: Scenic~\cite{fremont:scenic} is a language for generating visual scenes, specifically for autonomous vehicle training data.
     %An researcher working on creating autonomous driving technologies usingon validating visual scenes generated~\cite{kim:scenic-validation},
-    by comparing the scenes with a real-world autonomous vehicle video data~\cite{ceasar:nuscenes}.
+    % by comparing the scenes with a real-world autonomous vehicle video data~\cite{ceasar:nuscenes}.
     A Ph.D. student in Computer Science is working on validating visual scenes generated~\cite{kim:scenic-validation},
     by comparing the scenes with a real-world autonomous vehicle video data~\cite{ceasar:nuscenes}.
     
     \item
     \textbf{Evident of Misconduct:}
-    Data journalists often have large banks of video data, but not nearly enough time to look through these data. This may hinder the ability to accurate retrieve evidence involved in things like police misconducts or false court statements.
+    Data journalists often have large banks of video data~\cite{mcdowell:myanmar}, but not nearly enough time to look through these data. This hinders their ability to retrieve evidence involved in situations like police or military misconducts or false court statements.
 \end{itemize}
 
-In order to uncover what are the essential user necessities of a geospatial-video analysis tool, introduce new features to expediate workflows, and decrease barrier-to-entry for working on these important problems, we conduct user interviews related to the two use cases above.
+In order to uncover the essential user necessities of a geospatial-video analysis tool, introduce new features to expediate workflows, and decrease barrier-to-entry for working on these important problems, we conducted user interviews related to the two use cases above.
 
 % \andrew{Why hasn’t this topic been studied before, or why haven’t prior studies answered the questions you’re answering?
 % One issue with developing this tool is that in order to use it,
@@ -51,11 +51,11 @@ In this project we made following contributions:
     who are working on geospatial-video data analysis tasks.
     \item
     We designed a Python~\cite{van:python} programming tool based on prior works and participants' need from the interviews.
-    Our tool presents an easy-to-understand data abstraction that will allow programmers of any experience level to easily explore large geospatial-video databases. Our tool also provide an expressive domain-specific language for users to explore their geospatial-video datasets through the data abstraction we provided.
+    Our tool presents an easy-to-understand data abstraction that will allow programmers of any experience level to easily explore large, annotated geospatial-video databases. Our tool also provides an expressive domain-specific language for users to explore their geospatial-video datasets through the data abstraction we provide.
     \item
     Our tool is designed to be extensible.
     Users will be able to extend our language with their custom functions.
     These custom functions help the users to express the queries that our provided query language cannot.
     \item
-    We design a Graphical User Interface (GUI) for non-programmer to apply the same principle that our python tool provides but without programming experience.
+    We proposed an unimplemented design for a Graphical User Interface (GUI) that will allow a non-programmer to apply the same principles that our python tool provides but without programming experience.
 \end{enumerate}

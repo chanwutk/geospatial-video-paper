@@ -1,3 +1,31 @@
+@inproceedings{berger:projection, 
+author = {Berger, Thorsten and V\"{o}lter, Markus and Jensen, Hans Peter and Dangprasert, Taweesap and Siegmund, Janet}, 
+title = {Efficiency of Projectional Editing: A Controlled Experiment}, 
+year = {2016}, isbn = {9781450342186}, 
+publisher = {Association for Computing Machinery}, 
+address = {New York, NY, USA}, 
+url = {https://doi-org.libproxy.berkeley.edu/10.1145/2950290.2950315}, 
+doi = {10.1145/2950290.2950315}, 
+abstract = { Projectional editors are editors where a user's editing actions directly change the abstract syntax tree without using a parser. They promise essentially unrestricted language com position as well as flexible notations, which supports aligning languages with their respective domain and constitutes an essential ingredient of model-driven development. Such editors have existed since the 1980s and gained widespread attention with the Intentional Programming paradigm, which used projectional editing at its core. However, despite the benefits, programming still mainly relies on editing textual code, where projectional editors imply a very different -- typically perceived as worse -- editing experience, often seen as the main challenge prohibiting their widespread adoption. We present an experiment of code-editing activities in a projectional editor, conducted with 19 graduate computer-science students and industrial developers. We investigate the effects of projectional editing on editing efficiency, editing strategies, and error rates -- each of which we also compare to conventional, parser-based editing. We observe that editing is efficient for basic-editing tasks, but that editing strategies and typical errors differ. More complex tasks require substantial experience and a better understanding of the abstract-syntax-tree structure -- then, projectional editing is also efficient. We also witness a tradeoff between fewer typing mistakes and an increased complexity of code editing. }, 
+booktitle = {Proceedings of the 2016 24th ACM SIGSOFT International Symposium on Foundations of Software Engineering}, 
+pages = {763–774}, 
+numpages = {12}, 
+keywords = {experiment, language workbench, projectional editing}, 
+location = {Seattle, WA, USA}, 
+series = {FSE 2016} 
+}
+
+@misc{blinn:fructure,
+  url = {https://github.com/disconcision/fructure},
+  author = {Andrew Blinn},
+  title = {Fructure: A structured interaction engine in Racket},
+  year = {2020},
+  copyright = {Apache License 2.0},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  commit = {d434086052eab3c450f631b7b14dcbf9358f45b7}
+}
+
 @misc{ceasar:nuscenes,
   doi = {10.48550/ARXIV.1903.11027},
   url = {https://arxiv.org/abs/1903.11027},
@@ -141,7 +169,7 @@ numpages = {4}
 }
 
 @InProceedings{mckinney:pandas,
-  author    = { {W}es {M}c{K}inney },
+  author    = { Wes McKinney },
   title     = { {D}ata {S}tructures for {S}tatistical {C}omputing in {P}ython },
   booktitle = { {P}roceedings of the 9th {P}ython in {S}cience {C}onference },
   pages     = { 56 - 61 },
@@ -156,4 +184,45 @@ numpages = {4}
   year = {2022},
   note = {https://dplyr.tidyverse.org,
 https://github.com/tidyverse/dplyr},
+}
+
+@inbook{santos:javardise,
+author = {Santos, Andr\'{e} L.},
+title = {Javardise: A Structured Code Editor for Programming Pedagogy in Java},
+year = {2020},
+isbn = {9781450375078},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3397537.3397561},
+abstract = {The syntax of a programming language is the textual form - that conforms to a grammar - to express instructions of a programming model. The key idea of structured code editors is to constrain editing to syntactically valid program code, that is, the modifications ensure that the source code always conforms to the grammar. Syntax is considered an entry barrier when learning how to program. In this work we rehash the concept of structured code editors targeting programming education. We present Javardise, a structured editor for a subset of the Java language, and discuss its features in the light of programming pedagogy.},
+booktitle = {Conference Companion of the 4th International Conference on Art, Science, and Engineering of Programming},
+pages = {120–125},
+numpages = {6}
+}
+
+@article{weintrop:block-based,
+author = {Weintrop, David and Wilensky, Uri},
+title = {Comparing Block-Based and Text-Based Programming in High School Computer Science Classrooms},
+year = {2017},
+issue_date = {March 2018},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {18},
+number = {1},
+url = {https://doi.org/10.1145/3089799},
+doi = {10.1145/3089799},
+abstract = {The number of students taking high school computer science classes is growing. Increasingly, these students are learning with graphical, block-based programming environments either in place of or prior to traditional text-based programming languages. Despite their growing use in formal settings, relatively little empirical work has been done to understand the impacts of using block-based programming environments in high school classrooms. In this article, we present the results of a 5-week, quasi-experimental study comparing isomorphic block-based and text-based programming environments in an introductory high school programming class. The findings from this study show students in both conditions improved their scores between pre- and postassessments; however, students in the blocks condition showed greater learning gains and a higher level of interest in future computing courses. Students in the text condition viewed their programming experience as more similar to what professional programmers do and as more effective at improving their programming ability. No difference was found between students in the two conditions with respect to confidence or enjoyment. The implications of these findings with respect to pedagogy and design are discussed, along with directions for future work.},
+journal = {ACM Trans. Comput. Educ.},
+month = {oct},
+articleno = {3},
+numpages = {25},
+keywords = {design, Block-based programming, programming environments}
+}
+
+@online{mcdowell:myanmar,
+  author = {Robin McDowell AND Margie Mason},
+  title = {AP Investigation: Myanmar's junta using bodies to terrorize},
+  year = 2021,
+  url = {https://apnews.com/article/myanmar-business-b2187c696e428139437778aeab0c43d4},
+  urldate = {2022-05-14}
 }
